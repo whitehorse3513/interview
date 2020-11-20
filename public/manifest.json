@@ -1,7 +1,7 @@
 {
   "name": "Interview",
   "short_name": "Interview",
-  "start_url": "index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#f5f5f5",
   "theme_color": "#8163df",

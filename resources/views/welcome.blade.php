@@ -6,15 +6,15 @@
 
         <link rel="manifest" href="{{ asset('manifest.json') }}" />
 	    <!-- ios support -->
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-72x72.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-96x96.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-128x128.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-144x144.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-152x152.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-192x192.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-384x384.png" />
-	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-512x512.png" />
-	    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/icons/icon-72x72.png"/>
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-72x72.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-96x96.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-128x128.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-144x144.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-152x152.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-192x192.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-384x384.png') }}"  />
+	    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-512x512.png') }}"  />
+	    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/icons/icon-72x72.png') }}" />
 	    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
 	    <meta name="theme-color" content="#db4938" />
 
@@ -142,5 +142,15 @@
                 </div>
             </div>
         </div>
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", function() {
+                    navigator.serviceWorker
+                    .register("serviceWorker.js")
+                    .then(res => console.log("service worker registered"))
+                    .catch(err => console.log("service worker not registered", err));
+                });
+            }
+        </script>
     </body>
 </html>
