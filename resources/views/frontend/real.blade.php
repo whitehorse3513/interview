@@ -47,7 +47,7 @@
 </section>
 <main>
     <div class="countdown">
-        <p class="count_number">2</p>
+        <p class="count_number">10</p>
     </div>
 
     <div class="back_image">
@@ -171,7 +171,7 @@
                             window.location = '/thanks';
                         }
                         else {
-                            $(".count_number").text("2");
+                            $(".count_number").text("10");
                             $(".record a").hide();
                             startRecord();
                             $('input[name=page]').val(page);
