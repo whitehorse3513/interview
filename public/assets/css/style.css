@@ -1,0 +1,330 @@
+.header {
+    position: relative;
+    height: 18rem;
+    background-color: rgb(129, 99, 223);
+    border-radius: 0% 0% 0% 50px;
+    z-index: 1;
+}
+
+.message {
+    text-align: center;
+    color: white;
+    padding: 4rem 3rem 0rem 3rem;
+
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.notice {
+    width: 90%;
+    font-size: 18px;
+    font-weight: bolder;
+    margin: auto;
+}
+
+.greeting {
+    font-size: 22px;
+    margin-bottom: 2rem;
+}
+
+.greeting_client {
+    font-size: 25px;
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+.logo {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: white;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.back {
+    position: absolute;
+    top: 5rem;
+    left: 3rem;
+}
+
+.back button {
+    border-radius: 35%;
+    padding: 3px 8px;
+}
+
+#my_camera {
+    border-radius: 50%;
+    background-color: darkgray;
+    margin: auto;
+}
+
+.snap {
+    position: absolute;
+    top : 27%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+    color: white;
+    font-weight: bold;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+.camera_container {
+    position: relative;
+}
+
+.container {
+    padding: 5rem;
+    width: fit-content;
+}
+
+body {
+    background-color: rgb(241, 242, 246);
+}
+
+.interview {
+    border-radius: 50px;
+    background-color: rgb(129, 99, 223);
+    color: white;
+    font-weight: bold;
+    font-size: x-large;
+    height: fit-content;
+    position: relative;
+    top: 5rem;
+    width: 100%;
+    padding: 15px;
+}
+
+.form-control {
+    padding: 30px 15px;
+    font-size: 25px;
+    border-radius: 10px;
+}
+
+.notification_container {
+    position: absolute;
+    top: 45%;
+    width: 100%;
+}
+
+.notification {
+    background-color: rgba(0,0,0,0.65);
+    color: white;
+    position: relative;
+    width: 500px;
+    padding: 10px 5px 5px 5px;
+    text-align: center;
+    z-index: 2;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.back_image {
+    width: 100%;
+    margin: auto;
+}
+
+.image_container {
+    width: fit-content;
+    margin: auto;
+}
+
+.notification_body {
+    font-size: 18px;
+    font-weight: bolder;
+    line-height: normal;
+}
+
+.notification a {
+    padding: 5px 24px;
+    font-size: 18px;
+    margin: 10px;
+    font-weight: bolder;
+}
+
+#rec_camera {
+    border: 1px solid rgb(129, 99, 223);
+    border-radius: 10px;
+    background-color: darkgray;
+    margin: auto;
+    position: fixed;
+    bottom: 6rem;
+    right: 1rem;
+    z-index: 2;
+}
+
+.back_image {
+    position: absolute;
+    bottom: 0;
+}
+
+.countdown {
+    padding-top: 4rem;
+    font-size: 60px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.hint {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 25px;
+    padding: 1rem;
+}
+
+.hint a {
+    padding: 10px 20px;
+    font-weight: bolder;
+
+}
+
+.p-2 {
+    padding: 2rem;
+}
+
+.button_container {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+
+.record {
+    width: fit-content;
+    margin: auto;
+}
+
+.record a {
+    padding: 10px 35px;
+    font-size: 22px;
+    font-weight: bolder;
+    z-index: 2;
+}
+
+/* For Backend View */
+
+.contain {
+    padding: 10px 20px;
+    height: fit-content;
+    color: white;
+    background-color: rgb(129, 99, 223);
+}
+
+.contain .logout {
+    text-align: right;
+}
+
+.contain .title {
+    text-align: center;
+}
+
+.contain .option {
+    text-align: left;
+}
+
+.contain h2, .contain button {
+    font-weight: bolder;
+}
+
+.contain .option button {
+    margin-left: 10px;
+}
+
+.card {
+    width: 100%;
+    height: auto;
+    background-color: rgb(129, 99, 223);
+    margin: 10px 0px;
+    border: lightgray 1px solid;
+}
+
+.card-container {
+    padding: 10px 20px;
+}
+
+.card-header, .card-footer{
+    padding: 10px;
+    background-color: white;
+    display: inline-flex;
+    width: 100%;
+}
+
+.card-header p, .card-footer p {
+    color: lightblue;
+    margin: 0px 10px!important;
+    width: 100%;
+}
+
+.card-header a i {
+    color: darkgray;
+}
+
+.setting-container {
+    margin: 20px 20px 0px 20px;
+}
+.setting-container .content {
+    border-bottom: 1px solid darkgray;
+    padding-bottom: 5px;
+    font-size: 24px;
+}
+
+.setting-container .content label {
+    margin: 20px 10px 10px 20px;
+}
+
+.card-body {
+    margin: 40px 0px;
+}
+
+.card-image {
+    width: fit-content;
+    margin: auto;
+}
+
+.card-image img {
+    border-radius: 50%;
+}
+
+.card-footer p .checked{
+    color: orange;
+}
+
+.comment {
+    padding: 20px;
+    color: black;
+    font-size: 18px;
+}
+
+.comment textarea {
+    width: 100%;
+}
+
+.rating-md {
+    width: fit-content;
+}
+
+li .selected {
+    border: 1px solid lightgray;
+}
+
+#setting .form-control {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.backend .form-control {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.flow-auto {
+    overflow: auto;
+    height: 50vh;
+    border: 2px solid lightgray;
+}

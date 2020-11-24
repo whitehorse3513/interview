@@ -15,3 +15,21 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+mix.webpackConfig(webpack => {
+    return {
+        resolve: {
+            alias: {
+                videojs: 'video.js',
+                WaveSurfer: 'wavesurfer.js',
+                RecordRTC: 'recordrtc'
+            }
+        },
+        plugins: [
+            new webpack.ProvidePlugin({
+                videojs: 'video.js/dist/video.cjs.js',
+                RecordRTC: 'recordrtc'
+            })
+        ]
+    }
+})
