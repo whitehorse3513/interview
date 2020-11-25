@@ -35,6 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/saveComment/{id}', [BackendController::class, 'saveComment'])->name('saveComment');
     Route::get('/settings', [BackendController::class, 'showSettings'])->name('settings');
 
+    Route::get('/companies', [BackendController::class, 'companies'])->name('companies');
+    Route::post('/createCompany', [BackendController::class, 'createCompany'])->name('createCompany');
+    Route::delete('/createCompany/{id}', [BackendController::class, 'deleteCompany'])->name('deleteCompany');
+    Route::get('/createCompany/{id}/edit', [BackendController::class, 'updateCompany'])->name('updateCompany');
+
     Route::get('/campaigns', [BackendController::class, 'campaigns'])->name('campaigns');
     Route::post('/createCampaign', [BackendController::class, 'createCampaign'])->name('createCampaign');
     Route::delete('/createCampaign/{id}', [BackendController::class, 'deleteCampaign'])->name('deleteCampaign');

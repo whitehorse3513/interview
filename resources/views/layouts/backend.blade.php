@@ -5,19 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="manifest" href="{{ asset('back-manifest.json') }}" />
-    <!-- ios support -->
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-72x72.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-96x96.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-128x128.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-144x144.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-152x152.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-192x192.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-384x384.png') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/back-icons/icon-512x512.png') }}" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/back-icons/icon-72x72.png') }}"/>
-    <meta name="apple-mobile-web-app-status-bar" content="#8163df" />
-    <meta name="theme-color" content="#8163df" />
 
     <title>Interview dashboard</title>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -54,7 +41,6 @@
 
 @yield('section')
 
-<script src="{{ asset('assets/js/app.js') }}"></script>
 @yield('script')
 </body>
 </html>

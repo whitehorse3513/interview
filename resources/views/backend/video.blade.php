@@ -61,6 +61,11 @@
         z-index: 1;
     }
 
+    .rate_container {
+        width: fit-content;
+        margin: auto;
+    }
+
     @media screen and (max-width: 767px) {
         video {
             height: 40rem;
@@ -96,7 +101,7 @@
             <div class="video-list" id="video-list">
                 <ul>
                     @foreach($interviews as $key=>$interview)
-                    <li><a href="{{ asset('storage/Interview/'.$interview->file) }}" data-id="{{ $interview->id }}"  data-question="{{ $interview->question->name }}"><img src="{{ asset('storage/Avatar/'.$applicant->image) }}"/></a></li>
+                    <li><a href="{{ asset('storage/Interview/'.$interview->file) }}" data-id="{{ $interview->id }}"  data-rate="{{ $interview->rate }}"  data-comment="{{ $interview->comment }}"  data-question="{{ $interview->question->name }}"><img src="{{ asset('storage/Avatar/'.$applicant->image) }}"/></a></li>
                     @endforeach
                 </ul>
             </div>
@@ -131,10 +136,10 @@
                 </div>
             </div>
             <div class="comment">
-                <label for="comment">Comment</label>
+                <label for="comment">Comment <span class="rating_body" style="font-size: small;"></span></label>
                 <textarea name="comment" id="comment" rows="5"></textarea>
 
-                <input id="input-id" type="text" class="rating" data-min="0" data-max="5" data-size="sm" data-step="0.5" name="rate" >
+                <div class="rate_container"><input id="input-id" type="text" class="rating" data-min="0" data-max="5" data-size="sm" data-step="0.5" name="rate" ></div>
                 <input type="hidden" name="interview_id" id="interview_id" value="">
 
                 <div class="form-group">
@@ -152,7 +157,7 @@
 <script src="{{ asset('assets/js/star-rating.min.js') }}"></script>
 
 <script>
-    $("#input-id").rating();
+    $('#input-id').rating({ 'update': 0, 'showCaption': false, 'showClear': false });
     var video_player = document.getElementById("video-list");
     var links = video_player.getElementsByTagName('a');
 
@@ -172,8 +177,12 @@
         this.parentNode.classList.add('selected');
         var question = this.getAttribute('data-question');
         var interview_id = this.getAttribute('data-id');
+        var rate = this.getAttribute('data-rate');
+        var comment = this.getAttribute('data-comment');
         $('#question').text(question);
         $('#interview_id').val(interview_id);
+        $("#comment").val(comment);
+        $('.rating_body').text('Rating (' + parseFloat(rate) + ')');
     }
 
     const slider = document.querySelector('ul');
@@ -210,6 +219,7 @@
             }
     });
 
+
     $('body').on('click', '#saveComment', function (event) {
         event.preventDefault();
         var id = $('#interview_id').val();
@@ -224,9 +234,11 @@
             return false;
         }
         var comment = $("#comment").val();
-        comment = '';
+        if(!comment)
+        {
+            comment = '\0';
+        }
         var rate = $("#input-id").val();
-        rate = 0;
 
         $.ajax(
             {
@@ -258,7 +270,8 @@
                 }
                 $('#interview_id').val('');
                 $("#comment").val('');
-                $("#input-id").val('');
+                $("#input-id").rating('reset');
+                $('.rating_body').text('Rating (' + parseFloat(rate) + ')');
             }
         });
         return false;

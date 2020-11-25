@@ -9,7 +9,10 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item active">
-      <a class="nav-link active" data-toggle="tab" href="#campaign">Campaigns</a>
+      <a class="nav-link active" data-toggle="tab" href="#company">Companies</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#campaign">Campaigns</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#question">Questions</a>
@@ -21,6 +24,41 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
+    <div id="company" class="tab-pane active"><br>
+        <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em; width:100px;" id="createNewCompany">Add Company</a>
+        <div class="flow-auto">
+            <table class="table table-hover company">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="company_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="CompanyCrudModal"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form id="companydata">
+                    <div class="modal-body">
+                        <input type="hidden" id="company_id" name="company_id" value="">
+                        <input type="text" class="form-control" id="name" name="name" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Submit" id="company_submit" class="btn btn-sm btn-outline-danger py-0">
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="campaign" class="tab-pane active"><br>
         <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em; width:100px;" id="createNewCampaign">Add Campaign</a>
         <div class="flow-auto">
@@ -114,6 +152,8 @@
 <script src="{{ asset('assets/js/sweetalert2@9.js') }}"></script>
 <script>
 
+var company_root_url = <?php echo json_encode(route('companies')) ?>;
+var company_store = <?php echo json_encode(route('createCompany')) ?>;
 var campaign_root_url = <?php echo json_encode(route('campaigns')) ?>;
 var campaign_store = <?php echo json_encode(route('createCampaign')) ?>;
 var question_root_url = <?php echo json_encode(route('questions')) ?>;
@@ -122,6 +162,7 @@ var setting_root_url = <?php echo json_encode(route('setting')) ?>;
 var setting_store = <?php echo json_encode(route('saveSetting')) ?>;
 
 $(document).ready(function () {
+    get_company_data();
     get_campaign_data();
     get_question_data();
     get_setting_data();
@@ -131,6 +172,17 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
     });
+
+    //Get all Campaign
+    function get_company_data() {
+        $.ajax({
+            url: company_root_url,
+            type:'GET',
+            data: { }
+        }).done(function(data){
+            company_table_data_row(data)
+        });
+    }
 
     //Get all Campaign
     function get_campaign_data() {
@@ -167,33 +219,24 @@ $(document).ready(function () {
         });
     }
 
-    //Save data into database
-    $('body').on('click', '#setting_submit', function (event) {
-        event.preventDefault()
-        var campaign_id = $("#setting_select").val();
+    //Company table row
+    function company_table_data_row(data) {
+        var	rows = '';
 
-        $.ajax({
-            url: setting_store,
-            type: "POST",
-            data: {
-                campaign_id: campaign_id,
-            },
-            dataType: 'json',
-            success: function (data) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            },
-            error: function (data) {
-                console.log('Error......');
-            }
+        $.each( data, function( key, value ) {
+
+            rows = rows + '<tr>';
+            rows = rows + '<td>'+(key+1)+'</td>';
+            rows = rows + '<td>'+value.name+'</td>';
+            rows = rows + '<td data-id="'+value.id+'">';
+            rows = rows + '<a class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" id="editCompany" data-id="'+value.id+'" data-toggle="modal" data-target="#company_modal"><i class="fas fa-edit"></i></a> ';
+            rows = rows + '<a class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" id="deleteCompany" data-id="'+value.id+'" ><i class="fas fa-times"></i></a> ';
+            rows = rows + '</td>';
+            rows = rows + '</tr>';
         });
-    });
 
+        $(".company tbody").html(rows);
+    }
     //Campaign table row
     function campaign_table_data_row(data) {
 
@@ -212,19 +255,6 @@ $(document).ready(function () {
         });
 
         $(".campaign tbody").html(rows);
-    }
-
-    //Campaign table row
-    function append_select_option_row(data) {
-
-        var	rows = '';
-
-        $.each( data, function( key, value ) {
-            rows = rows + '<option value='+ value.id +'>'+value.name+'</option>';
-        });
-
-        $("#campaign_select").html(rows);
-        $("#setting_select").html(rows);
     }
 
     //Question table row
@@ -248,6 +278,30 @@ $(document).ready(function () {
         $(".question tbody").html(rows);
     }
 
+    //Campaign table row
+    function append_select_option_row(data) {
+
+        var	rows = '';
+
+        $.each( data, function( key, value ) {
+            rows = rows + '<option value='+ value.id +'>'+value.name+'</option>';
+        });
+
+        $("#campaign_select").html(rows);
+        $("#setting_select").html(rows);
+    }
+
+    //Insert Campaign data
+    $("body").on("click","#createNewCompany",function(e){
+        e.preventDefault;
+        $('#CompanyCrudModal').html("Create Company");
+        $('#company_submit').val("Create Company");
+        $('#company_modal').modal('show');
+        $('#company_id').val('');
+        $('#companydata').trigger("reset");
+
+    });
+
     //Insert Campaign data
     $("body").on("click","#createNewCampaign",function(e){
         e.preventDefault;
@@ -268,6 +322,39 @@ $(document).ready(function () {
         $('#question_id').val('');
         $('#questiondata').trigger("reset");
 
+    });
+
+    //Save data into database
+    $('body').on('click', '#company_submit', function (event) {
+        event.preventDefault()
+        var id = $("#companydata #company_id").val();
+        var name = $("#companydata #name").val();
+
+        $.ajax({
+            url: company_store,
+            type: "POST",
+            data: {
+                id: id,
+                name: name,
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                $('#companydata').trigger("reset");
+                $('#company_modal').modal('hide');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                get_company_data()
+            },
+            error: function (data) {
+                console.log('Error......');
+            }
+        });
     });
 
     //Save data into database
@@ -338,6 +425,48 @@ $(document).ready(function () {
         });
     });
 
+
+    //Save data into database
+    $('body').on('click', '#setting_submit', function (event) {
+        event.preventDefault()
+        var campaign_id = $("#setting_select").val();
+
+        $.ajax({
+            url: setting_store,
+            type: "POST",
+            data: {
+                campaign_id: campaign_id,
+            },
+            dataType: 'json',
+            success: function (data) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            },
+            error: function (data) {
+                console.log('Error......');
+            }
+        });
+    });
+
+    //Edit modal window
+    $('body').on('click', '#editCompany', function (event) {
+        event.preventDefault();
+        var id = $(this).data('id');
+
+        $.get(company_store+'/'+ id+'/edit', function (data) {
+            $('#CompanyCrudModal').html("Edit Company");
+            $('#company_submit').val("Edit Company");
+            $('#company_modal').modal('show');
+            $('#companydata #company_id').val(data.data.id);
+            $('#companydata #name').val(data.data.name);
+        })
+    });
+
     //Edit modal window
     $('body').on('click', '#editCampaign', function (event) {
 
@@ -366,6 +495,35 @@ $(document).ready(function () {
             $('#questiondata #campaign_select').val(data.data.campaign_id);
             $('#questiondata #name').val(data.data.name);
         })
+    });
+
+    //DeleteCampaign
+    $('body').on('click', '#deleteCompany', function (event) {
+        if(!confirm("Do you really want to do this?")) {
+        return false;
+        }
+
+        event.preventDefault();
+        var id = $(this).attr('data-id');
+
+        $.ajax(
+            {
+            url: company_store+'/'+id,
+            type: 'DELETE',
+            data: {
+                    id: id
+            },
+            success: function (response){
+
+                Swal.fire(
+                'Remind!',
+                'Company deleted successfully!',
+                'success'
+                )
+                get_company_data()
+            }
+        });
+        return false;
     });
 
     //DeleteCampaign

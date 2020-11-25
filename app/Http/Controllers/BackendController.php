@@ -11,6 +11,7 @@ use App\Models\Interview;
 use App\Models\Question;
 use App\Models\Campaign;
 use App\Models\Setting;
+use App\Models\Company;
 
 use Session;
 
@@ -133,15 +134,10 @@ class BackendController extends Controller
     public function saveComment(Request $request)
     {
         try {
-            Interview::updateOrCreate(
-                [
-                    'id' => $request->id
-                ],
-                [
-                    'comment' => $request->comment,
-                    'mark' => $request->mark
-                ]
-            );
+            $interview = Interview::find($request->id);
+            $interview->comment = $request->comment;
+            $interview->rate = $request->rate;
+            $interview->save();
 
             return response()->json(
                 [
@@ -157,6 +153,50 @@ class BackendController extends Controller
                 ]
             );
         }
+    }
+
+    public function companies() {
+        $companies = Company::latest()->get();
+
+        return request()->ajax() ? response()->json($companies,Response::HTTP_OK) : abort(404);
+    }
+
+    public function createCompany(Request $request) {
+        Company::updateOrCreate(
+            [
+              'id' => $request->id
+            ],
+            [
+              'name' => $request->name
+            ]
+          );
+
+          return response()->json(
+            [
+              'success' => true,
+              'message' => 'Data inserted successfully'
+            ]
+          );
+    }
+
+    public function updateCompany($id)
+    {
+        $company  = Company::find($id);
+
+        return response()->json([
+            'data' => $company
+        ]);
+    }
+
+    public function deleteCompany($id)
+    {
+        $company = Company::find($id);
+
+        $company->delete();
+
+        return response()->json([
+        'message' => 'Data deleted successfully!'
+        ]);
     }
 
     public function campaigns() {
